@@ -8,8 +8,10 @@ https://www.geograph.org.uk/contact.php
 ## Prerequisites:
 *   https://github.com/ded/reqwest
 
-## Minimal example, including a dynamic grid
-   demo: https://www.geograph.org/leaflet/GeographCoverage-example.html
+## Minimal example
+demo: https://www.geograph.org/leaflet/GeographCoverage-example.html
+Includes a nice Great Britain and Ireland grid from:
+*   https://github.com/bill-chadwick/Leaflet.MetricGrid/ 
 
 ## Clearly inspired by and draws ideas from:
 *   https://github.com/MatthewBarker/leaflet-wikipedia/
