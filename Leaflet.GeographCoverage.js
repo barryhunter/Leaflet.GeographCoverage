@@ -22,7 +22,7 @@
 * src: https://github.com/barryhunter/Leaflet.GeographCoverage
 * 
 * Prerequisites:
-*   https://github.com/ded/reqwest
+*   https://github.com/ded/reqwest OR jquery 1.8 ish (can use either to make ajax requests as both very similar!
 *
 * Minimal example, including a dynamic grid 
 *   see: https://www.geograph.org/leaflet/GeographCoverage.html
@@ -101,17 +101,14 @@ L.GeographCoverage = L.FeatureGroup.extend({
 				if (vgr && vgr.length >0) myriads.push(vgr);
 				data.myriads = myriads.join(',');
 			}
-
-			//if (document.theForm.customised[1].checked)
-			//	url = url + '&user_id='+document.theForm.user_id.value;
-
 		} else {
 			var url = "https://www.geograph.org.uk/stuff/squares.json.php";
 			myriads = new Array();
 		}
 
             if (zoom >= this.options.minZoom && zoom <= this.options.maxZoom) {
-                reqwest({
+		var ajaxRequest = (window.reqwest)?reqwest:$.ajax;
+                ajaxRequest({
                     url: url+"?callback=?",
                     data: data,
 			 type: 'jsonp',
@@ -124,6 +121,26 @@ L.GeographCoverage = L.FeatureGroup.extend({
   	    this.outputStatus('');
             }
 	},
+
+        getMyriadLetter: function(latLng) {
+		if (!window.GT_WGS84) //only works if GeoTools2 is loaded!
+			return false;
+                var gridref = null;
+                var wgs84=new GT_WGS84();
+                wgs84.setDegrees(latLng.lat,latLng.lng);
+
+                if (wgs84.isIreland2())
+                       grid=wgs84.getIrish(true);
+                else
+                       grid=wgs84.getOSGB();
+
+                if (grid && grid.status && grid.status == 'OK') {
+                        var gridref = grid.getGridRef(1);
+                        var bits = gridref.split(/ /);
+                        return  bits[0];
+                } else
+                        return false;
+        },
 
 	outputStatus: function (text) {
 		document.getElementById('message').innerHTML = text;
@@ -201,7 +218,7 @@ L.GeographCoverage = L.FeatureGroup.extend({
 			}
 			running = false;
 
-        },
+        }
 
 });
 
