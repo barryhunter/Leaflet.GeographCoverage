@@ -4,6 +4,10 @@ Leaflet based Geograph Coverage grid (number of photos submitted per square)
 Note: please contact Geograph before using, as it uses our API, so polite to ask permission
 https://www.geograph.org.uk/contact.php
 
+* If looking for the ClickLayer, that moved to its on repository: https://github.com/barryhunter/Leaflet.GeographClickLayer
+
+* See also https://github.com/barryhunter/Leaflet.GeographPhotos which displays thumbnails actully on the map
+
 
 ## Prerequisites:
 *   https://github.com/ded/reqwest
